@@ -4,6 +4,8 @@ import CardsList from "./components/CardsList";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
+import API from "./config";
+
 class App extends Component {
     // initialize state
     //! is constructor needed? ES6 =>
@@ -47,9 +49,9 @@ class App extends Component {
         console.log("Weather Fetch - Set State");
         let url = "http://api.openweathermap.org/data/2.5/forecast";
         let latLng = "?lat=29.6822263&lon=-82.3456736";
-        let API = "&APPID=715b053fa54036e6f3672af97d9be80d";
-
-        fetch(`${url}${latLng}&cnt=12&units=imperial${API}`)
+        //  API = "&APPID=715b053fa54036e6f3672af97d9be80d";
+        let key = API;
+        fetch(`${url}${latLng}&cnt=12&units=imperial${key}`)
             .then(response =>
                 response.json().catch(err => {
                     console.err(`'${err}' happened!`);
