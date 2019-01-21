@@ -1,4 +1,29 @@
-.App {
+div.App {
+    width: 1200px;
+}
+
+#jumbo {
+    background-color: #7fa0c1;
+    text-align: center;
+    font-size: 36px;
+}
+
+div#card-container {
+    display: inline-block;
+    text-align: center;
+}
+
+#my-row.row {
+    text-align: center;
+    margin-right: 0px;
+    margin-left: 0px;
+}
+
+.card {
+    text-align: center;
+    margin: 10px;
+}
+/* .App {
     text-align: center;
 }
 
@@ -29,4 +54,4 @@
     to {
         transform: rotate(360deg);
     }
-}
+} */

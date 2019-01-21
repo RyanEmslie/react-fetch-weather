@@ -3,7 +3,8 @@ import React, { Component } from "react";
 import { Card, CardBody, CardImg, CardSubtitle, CardTitle } from "reactstrap";
 import { Row, Col, Jumbotron } from "reactstrap";
 
-import "bootstrap/dist/css/bootstrap.css";
+// import "bootstrap/dist/css/bootstrap.css";
+import "../App.css";
 
 class Cards extends Component {
     render() {
@@ -36,26 +37,28 @@ class Cards extends Component {
         let cards = [];
         cards = cardInfoPush.map(card => (
             <Col xs="auto" key={card.id}>
-                <Card>
-                    <CardTitle>
-                        {new Date(card.dt * 1000).toLocaleString()}
-                    </CardTitle>
-                    <CardImg
-                        top
-                        width="100%"
-                        src={card.url}
-                        alt="Card image cap"
-                    />
-                    <CardBody>
-                        <CardTitle>{Math.ceil(card.temp)}° F</CardTitle>
-                        <CardSubtitle>
-                            {card.main} -{card.description}
-                        </CardSubtitle>
-                        <CardSubtitle>
-                            {card.city}, {card.region}
-                        </CardSubtitle>
-                    </CardBody>
-                </Card>
+                <div className="card-deck">
+                    <Card className="text-center">
+                        <CardTitle>
+                            {new Date(card.dt * 1000).toLocaleString()}
+                        </CardTitle>
+                        <CardImg
+                            top
+                            width="100%"
+                            src={card.url}
+                            alt="Card image cap"
+                        />
+                        <CardBody>
+                            <CardTitle>{Math.ceil(card.temp)}° F</CardTitle>
+                            <CardSubtitle>
+                                {card.main} - {card.description}
+                            </CardSubtitle>
+                            <CardSubtitle>
+                                {card.city}, {card.region}
+                            </CardSubtitle>
+                        </CardBody>
+                    </Card>
+                </div>
             </Col>
         ));
 
@@ -73,11 +76,13 @@ class Cards extends Component {
         ) {
             return (
                 <div>
-                    <Jumbotron>
+                    <Jumbotron id="jumbo" className="jumbotron">
                         {this.props.ipData.city}'s 12 Hour Forcast
                     </Jumbotron>
-                    <Row>{firstRowCards}</Row>
-                    <Row>{secondRowCards}</Row>
+                    <div className="card-deck">
+                        <Row id="my-row">{firstRowCards}</Row>
+                        <Row id="my-row">{secondRowCards}</Row>
+                    </div>
                 </div>
             );
         } else {

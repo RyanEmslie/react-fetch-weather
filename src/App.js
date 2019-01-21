@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import CardsList from "./components/CardsList";
 
-import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./App.css";
 
 import API from "./config";
 
@@ -25,8 +25,9 @@ class App extends Component {
     }
 
     // Fetch IP info API
+
     getIpData = () => {
-        console.log("IP Fetch - Set State");
+        console.log("IP Fetch");
         fetch(`https://ipapi.co/json`)
             .then(response =>
                 response.json().catch(err => {
@@ -49,7 +50,6 @@ class App extends Component {
         console.log("Weather Fetch - Set State");
         let url = "http://api.openweathermap.org/data/2.5/forecast";
         let latLng = "?lat=29.6822263&lon=-82.3456736";
-        //  API = "&APPID=715b053fa54036e6f3672af97d9be80d";
         let key = API;
         fetch(`${url}${latLng}&cnt=12&units=imperial${key}`)
             .then(response =>
@@ -71,11 +71,10 @@ class App extends Component {
     render() {
         console.log("Render App Component");
         console.log(`State at begining of Render`, this.state);
-
         //! Needs work
         // Lazy approach to ensuring undefined object values are not rendered
         // async await?
-        if (this.state.weatherData.length > 0) {
+        if (this.state.weatherData.length > 0 || this.state.ipData.length > 0) {
             return (
                 <div className="App">
                     <CardsList
@@ -85,7 +84,7 @@ class App extends Component {
                 </div>
             );
         } else {
-            return <p>NOT READY - Wait for the Data!!!!!!1</p>;
+            return <h1>Data is Still Loading...</h1>;
         }
     }
 }
