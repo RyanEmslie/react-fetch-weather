@@ -7,86 +7,56 @@ import "./App.css";
 import API from "./config";
 
 class App extends Component {
-    // initialize state
-    //! is constructor needed? ES6 =>
-    constructor() {
-        super();
-        this.state = {
-            weatherData: [],
-            ipData: []
-        };
-    }
+	// initialize state
+	state = {
+		weatherData: [],
+		ipData: [],
+		ipIsLoaded: false,
+		weatherIsLoaded: false
+	};
 
-    // FETCH methods called when component mounts
-    componentDidMount() {
-        console.log(`App component - Did Mount`);
-        this.getIpData();
-        this.getWeatherData();
-    }
+	// FETCH methods called when component mounts
+	componentDidMount() {
+		console.log(`App component - Did Mount`);
+		this.getIpData();
+		this.getWeatherData();
+	} // end componentDidMount
 
-    // Fetch IP info API
+	//FETCH Open Weather API based on Lat - Long
+	getWeatherData = async () => {
+		let url = "http://api.openweathermap.org/data/2.5/forecast";
+		let latLng = "?lat=29.6822263&lon=-82.3456736";
+		let key = API;
 
-    getIpData = () => {
-        console.log("IP Fetch");
-        fetch(`https://ipapi.co/json`)
-            .then(response =>
-                response.json().catch(err => {
-                    console.err(`'${err}' happened!`);
-                    return {};
-                })
-            )
-            .then(locData => {
-                this.setState({
-                    ipData: locData
-                });
-            })
-            .catch(err => {
-                console.log("fetch request failed: ", err);
-            });
-    };
+		let res = await fetch(`${url}${latLng}&cnt=12&units=imperial${key}`);
+		let weatherData = await res.json();
+		this.setState({ weatherData, weatherIsLoaded: true });
+		console.log("Weather Fetch - Set State");
+	};
 
-    //FETCH Open Weather API based on Lat - Long
-    getWeatherData = () => {
-        console.log("Weather Fetch - Set State");
-        let url = "http://api.openweathermap.org/data/2.5/forecast";
-        let latLng = "?lat=29.6822263&lon=-82.3456736";
-        let key = API;
-        fetch(`${url}${latLng}&cnt=12&units=imperial${key}`)
-            .then(response =>
-                response.json().catch(err => {
-                    console.err(`'${err}' happened!`);
-                    return {};
-                })
-            )
-            .then(locData => {
-                this.setState({
-                    weatherData: locData.list
-                });
-            })
-            .catch(err => {
-                console.log("fetch request failed: ", err);
-            });
-    };
+	// Fetch IP info API
+	getIpData = async () => {
+		let res = await fetch("https://ipapi.co/json");
+		let ipData = await res.json();
+		this.setState({ ipData, ipIsLoaded: true });
+		console.log("IPAPI Fetch - Set State");
+	};
 
-    render() {
-        console.log("Render App Component");
-        console.log(`State at begining of Render`, this.state);
-        //! Needs work
-        // Lazy approach to ensuring undefined object values are not rendered
-        // async await?
-        if (this.state.weatherData.length > 0 || this.state.ipData.length > 0) {
-            return (
-                <div className="App">
-                    <CardsList
-                        weatherData={this.state.weatherData}
-                        ipData={this.state.ipData}
-                    />
-                </div>
-            );
-        } else {
-            return <h1>Data is Still Loading...</h1>;
-        }
-    }
+	render() {
+		console.log(this.state.ipData, this.state.weatherData);
+		if (this.state.ipIsLoaded === true && this.state.weatherIsLoaded === true) {
+			return (
+				<div className="App">
+					<CardsList
+						weatherData={this.state.weatherData}
+						ipData={this.state.ipData}
+					/>
+				</div>
+			);
+		} else {
+			return <h1>Data is Still Loading...</h1>;
+		}
+	}
 }
 
 export default App;

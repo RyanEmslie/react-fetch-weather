@@ -1,57 +1,53 @@
+.row {
+	flex-wrap: nowrap;
+}
+
+#root {
+	width: 100%;
+	margin: auto;
+}
+
 div.App {
-    width: 1200px;
+	width: 1200px;
+	margin: auto;
 }
 
 #jumbo {
-    background-color: #7fa0c1;
-    text-align: center;
-    font-size: 36px;
+	background-color: #7fa0c1;
+	text-align: center;
+	font-size: 36px;
 }
 
 div#card-container {
-    display: inline-block;
-    text-align: center;
+	display: inline-block;
+	text-align: center;
 }
 
 #my-row.row {
-    text-align: center;
-    margin-right: 0px;
-    margin-left: 0px;
+	text-align: center;
+	/* margin-right: 0px;
+    margin-left: 0px; */
+	margin: auto;
 }
-
+#my2-row.row {
+	text-align: center;
+	/* margin-right: 0px;
+    margin-left: 0px; */
+	margin: auto;
+	width: 80%;
+	flex-wrap: nowrap;
+}
 .card {
-    text-align: center;
-    margin: 10px;
-}
-/* .App {
-    text-align: center;
+	text-align: center;
+	margin: 0px;
 }
 
-.App-logo {
-    animation: App-logo-spin infinite 20s linear;
-    height: 40vmin;
+.card-img {
+	width: 100%;
+	height: 15vw;
+	object-fit: cover;
 }
 
-.App-header {
-    background-color: #282c34;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
+div.text-center.card {
+	margin: 0px;
 }
-
-.App-link {
-    color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
-} */
